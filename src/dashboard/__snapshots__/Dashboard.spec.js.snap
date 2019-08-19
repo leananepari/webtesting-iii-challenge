@@ -23,6 +23,7 @@ Array [
   >
     <button
       className="toggle-btn"
+      data-testid="lock"
       disabled={true}
       onClick={[Function]}
     >
@@ -30,6 +31,7 @@ Array [
     </button>
     <button
       className="toggle-btn"
+      data-testid="close"
       disabled={false}
       onClick={[Function]}
     >

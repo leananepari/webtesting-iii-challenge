@@ -5,36 +5,27 @@ import { render, fireEvent} from '@testing-library/react';
 import Controls from './Controls';
 
 describe('<Controls />', () => {
-  // 2. write this test
   it('matches snapshot', () => {
     const tree = renderer.create(<Controls />); // generates a DOM tree
-
-    // snapshots are a JSON representation of the DOM tree
     expect(tree.toJSON()).toMatchSnapshot();
   });
 
+  it("should not fire lock gate when the gate is open", () => {
+    let toggleLocked = jest.fn();
+
+    const { getByText } = render(<Controls toggleLocked={toggleLocked}  />);
+    fireEvent.click(getByText(/lock gate/i));
+    expect(toggleLocked).not.toHaveBeenCalled();
+  });
+
+  it("should fire 'close gate' when clicked and change text to 'open gate'", () => {
+    let toggleClosed = jest.fn();
+
+    const { getByText } = render(<Controls toogleClosed={toggleClosed}  />);
+    fireEvent.click(getByText(/close gate/i));
+    // expect(toggleClosed).toHaveBeenCalled();
+
+    // expect(getByText(/close gate/i)).toBeTruthy();
+  });
   
 });
-
-// describe('asyncFunc', () => {
-//   it('eventually resolves to success', () => {
-//     // let resolvedValue = null;
-//     // asyncFunc().then(res => {
-//       const expected = 'Success!';
-//       // let resolvedValue = res;
-//       return expect(asyncFunc()).resolves.toBe(expected);
-//     // })
-//   });
-// })
-
-// describe("speak", () => {
-//   it('Should pass "bark" into speak', () => {
-//     const { getByText, queryByText } = render(<App />);
-
-//     expect(queryByText(/bark/i)).toBeFalsy();
-
-//     fireEvent.click(getByText(/speak/i));
-
-//     expect(queryByText(/bark/i)).toBeTruthy();
-//   })
-// })
